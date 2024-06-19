@@ -156,30 +156,3 @@ mes.mean.masses = mes.masses %>%
   summarise(N = n(),
             mean.mass.mg = mean(FreshMass.mg))
 
-# write.csv(mes.masses, "mesomasses.csv") 
-
-
-
-# library(tidyverse)
-# library(brms)
-# 
-# mes.masses = read.csv("mesomasses.csv", row.names = 1, header = TRUE)
-# mes.mean.masses = mes.masses %>%
-#   group_by(Unit_quarter, taxon_name) %>%
-#   summarise(N = n(),
-#             mean.mass.mg = mean(FreshMass.mg))
-# 
-# 
-# #### partial pooling within groups, group means varying by unit ####
-# mpp = brm(bf(FreshMass.mg ~ 0 + taxon_name + (0 + taxon_name|Unit_quarter)),
-#           family = Gamma(link = "log"),
-#           init = 0,
-#           chains = 4,
-#           cores = 4,
-#           iter = 4000,
-#           control = list(adapt_delta = 0.95),
-#           backend = "cmdstanr",
-#           seed = 111,
-#           data = mes.masses)
-
-

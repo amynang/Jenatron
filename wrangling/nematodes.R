@@ -78,8 +78,8 @@ nem.comp = nem.comp %>% as.data.frame() %>%
   ungroup() %>% 
   pivot_wider(names_from = Taxon,
               values_from = Abundance) %>% 
-  mutate(Total = rowSums(.[2:110])) %>% 
-  mutate(across(where(is.numeric), ~ ./Total)) %>% 
+  mutate(Total = rowSums(.[2:112])) %>% 
+  mutate(across(Achromadora:Zygotylenchus, ~ ./Total)) %>% 
   select(-Total)
 
 # density of individual taxa based on total nematode density and proportions 
@@ -164,40 +164,3 @@ nem.taxonomy = taxonomy %>%
   mutate(.before = class,
          group = "Nematodes")
 
-
-
-
-
-
-
-
-
-
-
-# 
-# boom = nem.abun %>% 
-#   mutate(not.sieved = soil.1$not.sieved[match(.$Unit_quarter, soil.1$sample.code)], 
-#          sieved = ifelse(is.na(not.sieved), "yes", "no"), 
-#          gram.soil = soil.1$dry.soil.weight.g[match(.$Unit_quarter, soil.1$sample.code)]
-#          )
-# summary(lm(total.abundance/gram.soil ~ sieved, data = boom))
-# library(glmmTMB)
-# summary(glmmTMB(total.abundance ~ sieved + offset(log(gram.soil)), 
-#                 family = poisson(), 
-#                 data = boom))
-# 
-# 
-# 
-# 
-# library(brms)
-# m = brm(bf(total.abundance ~ offset(log(gram.soil)) + Unit_quarter:sieved),
-#           family = poisson(),
-#           chains = 3,
-#           cores = 3,
-#           iter = 3000,
-#           backend = "cmdstanr",
-#           seed = 321,
-#           data = boom)
-# pp_check(m)
-# summary(m)
-# conditional_effects(m)
